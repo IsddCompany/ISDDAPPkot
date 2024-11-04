@@ -1,15 +1,23 @@
 package window
 
+import java.net.URI
 import window.sub.saveFile
 import window.sub.openFile
+import java.awt.Desktop
 import javax.swing.*
 import java.awt.Font
 import java.awt.event.ActionEvent
+import java.io.File
+import java.io.FileReader
+import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
 //코틀린이 좋긴하네 자바보단;
 class Mainwindow : JFrame() {
     init {
+        val icon = ImageIcon(Mainwindow::class.java.getResource("img/icon.png"))
+        this.iconImage = icon.image
+
 
         title = "ISDD Text Editor"
 
@@ -21,7 +29,11 @@ class Mainwindow : JFrame() {
         val savet = JMenuItem("저장(Ctrl+S)")
         val exitt = JMenuItem("나가기")
 
+        val helpMenu = JMenu("도움알")
+        val craditt = JMenuItem("크래딧")
+        val githubt = JMenuItem("저장소로 가기")
 
+        helpMenu.isEnabled = true
         fileMenu.isEnabled = true
 
         fileMenu.add(newt)
@@ -30,7 +42,11 @@ class Mainwindow : JFrame() {
         fileMenu.addSeparator()
         fileMenu.add(exitt)
 
+        helpMenu.add(craditt)
+        helpMenu.add(githubt)
+
         menuBar.add(fileMenu)
+        menuBar.add(helpMenu)
 
         jMenuBar = menuBar
 
@@ -49,8 +65,25 @@ class Mainwindow : JFrame() {
         val scrollPane = JScrollPane(editarea)
         add(scrollPane)
 
+        githubt.addActionListener{
+            val url = "https://github.com/IsddCompany/ISDDAPPkot"
+
+            if (Desktop.isDesktopSupported()) {
+                try {
+                    Desktop.getDesktop().browse(URI(url))
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    println("웹사이트를 열 수 없습니다: ${e.message}")
+                }
+            } else {
+                println("데스크탑 기능이 지원되지 않습니다.")
+            }
+        }
         newt.addActionListener{
             editarea.text = ""
+        }
+        craditt.addActionListener{
+            creditwindow()
         }
         opent.addActionListener {
             openFile(editarea)
