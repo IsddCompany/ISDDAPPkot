@@ -7,9 +7,6 @@ import java.awt.Desktop
 import javax.swing.*
 import java.awt.Font
 import java.awt.event.ActionEvent
-import java.io.File
-import java.io.FileReader
-import javax.imageio.ImageIO
 import kotlin.system.exitProcess
 
 //코틀린이 좋긴하네 자바보단;
@@ -83,7 +80,7 @@ class Mainwindow : JFrame() {
             editarea.text = ""
         }
         craditt.addActionListener{
-            creditwindow()
+            Creditwindow()
         }
         opent.addActionListener {
             openFile(editarea)

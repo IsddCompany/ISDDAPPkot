@@ -4,7 +4,8 @@ import java.awt.BorderLayout
 import java.awt.Font
 import javax.swing.*
 
-class creditwindow : JFrame() {
+
+class Creditwindow : JFrame() {
 
     init {
         val icon = ImageIcon(Mainwindow::class.java.getResource("img/icon.png"))
