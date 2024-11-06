@@ -1,5 +1,6 @@
 package window.sub
 
+
 import java.io.File
 import javax.swing.JFileChooser
 import javax.swing.JFrame
@@ -25,6 +26,10 @@ fun openFile(editarea: JTextArea) {
         }
 
     }
+}
+
+fun openisdd(filelocation : String): String{
+    return ISDD.decoding(File(filelocation).readLines()[0])
 }
 
 fun saveFile(editarea: JTextArea) {
