@@ -1,4 +1,4 @@
-package window.sub
+package window.util
 
 
 import java.io.File
@@ -6,9 +6,10 @@ import javax.swing.JFileChooser
 import javax.swing.JFrame
 import javax.swing.JOptionPane
 import javax.swing.JTextArea
+import javax.swing.JTextPane
 import javax.swing.filechooser.FileNameExtensionFilter
 
-fun openFile(editarea: JTextArea) {
+fun openFile(editarea: JTextPane) {
     val fileChooser = JFileChooser()
 
     fileChooser.fileFilter = FileNameExtensionFilter("ISDD파일", "isdd")
@@ -32,7 +33,7 @@ fun openisdd(filelocation : String): String{
     return ISDD.decoding(File(filelocation).readLines()[0])
 }
 
-fun saveFile(editarea: JTextArea) {
+fun saveFile(editarea: JTextPane) {
     val fileChooser = JFileChooser()
     val isf = FileNameExtensionFilter("ISDD파일", "isdd")
     fileChooser.fileFilter = isf
@@ -55,7 +56,13 @@ fun saveFile(editarea: JTextArea) {
         val selectedFile = fileChooser.selectedFile
 
         try {
-            val file = File(selectedFile.path + selected)
+
+            val sp = selectedFile.path
+            val file = if (sp.endsWith(".isdd") or sp.endsWith("txt")){
+                File(selectedFile.path + selected)
+            } else {
+                File(selectedFile.path)
+            }
             file.writeText(content)
             JOptionPane.showMessageDialog(null, "파일이 정상적으로 저장되었습니다.")
 
